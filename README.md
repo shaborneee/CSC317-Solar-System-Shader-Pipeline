@@ -14,7 +14,7 @@ To run this solar system shader pipeline:
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/ohnooj/computer-graphics-shader-pipeline.git]
+   git clone https://github.com/ohnooj/computer-graphics-shader-pipeline.git
    ```
 
 2. **Replace source files:**

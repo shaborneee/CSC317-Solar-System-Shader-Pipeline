@@ -1,6 +1,6 @@
 # Solar System Shader Pipeline
 
-![](submission-images/Solar-System.mp4)
+![Solar System Shader Pipeline](submission-images/Solar-System.gif)
 
 ## Personal Information
 - **Full Name:** Shabornee Saha
@@ -56,7 +56,6 @@ A realistic solar system simulation using OpenGL shaders with dynamic textures, 
 - **Graphics Libraries:** 
   - OpenGL for rendering
 
-![Solar System Screenshot](submission-images/Screenshot%202025-11-29%20034508.jpg)
 [coordinates](https://en.wikipedia.org/wiki/Homogeneous_coordinates) 
 
 Running `./shaderpipeline ../data/test-08.json` should display a creative planet

@@ -1,0 +1,50 @@
+// Source: LAB 6 Shader Pipeline Submission (changes made to include is_planet variable to distinguish whether it's a planet or the sun)
+// Hint: Crib from your model_view_projection.vs
+// Layout:
+//                                         Indicate that we're dealing with
+//                                         triangles in CCW order and using a
+//                                         sane spacing.
+layout(triangles, equal_spacing, ccw) in;
+// Added planet_index to apply for all planets
+// Uniforms
+uniform mat4 view;
+uniform mat4 proj;
+uniform float animation_seconds;
+uniform bool is_planet;
+uniform int planet_index;
+// Inputs:
+//                    array of 3 3D patch corner positions
+in vec4 pos_es_in[];
+// Outputs:
+//                   projected, view, and model transformed 3D position
+out vec4 pos_fs_in;
+//                        view and model transformed 3D position
+out vec4 view_pos_fs_in;
+//                      view and model transformed 3D normal
+out vec3 normal_fs_in;
+//                      3D position _before_ applying model, view or projection
+//                      transformations (e.g., point on unit sphere)
+out vec3 sphere_fs_in;
+// expects: interpolat, model, 
+void main()
+{
+  /////////////////////////////////////////////////////////////////////////////
+  vec4 interp_pos = interpolate(gl_TessCoord, pos_es_in[0], pos_es_in[1], pos_es_in[2]);
+  vec3 sphere_position = normalize(interp_pos.xyz);
+  sphere_fs_in = sphere_position;
+
+  mat4 model_matrix = model(is_planet, animation_seconds, planet_index);
+  vec4 world_position = model_matrix * vec4(sphere_position, 1.0);
+  vec4 view_position = view * world_position;
+
+  gl_Position = proj * view_position;
+
+  pos_fs_in = world_position;
+  view_pos_fs_in = view_position;
+
+  mat4 mv_matrix = view * model_matrix;
+  normal_fs_in = normalize((transpose(inverse(mv_matrix)) * vec4(sphere_position, 0.0)).xyz);
+  /////////////////////////////////////////////////////////////////////////////
+}
+
+
